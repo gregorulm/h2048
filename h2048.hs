@@ -37,11 +37,11 @@ merge xs = merged ++ padding
                            | otherwise = x     : combine (y:xs)
           combine x        = x
 
-move :: Grid -> Move -> Grid
-move grid Left  = map merge grid
-move grid Right = map (reverse . merge . reverse) grid
-move grid Up    = transpose $ move (transpose grid) Left
-move grid Down  = transpose $ move (transpose grid) Right
+move :: Move -> Grid ->  Grid
+move Left  = map merge
+move Right = map (reverse . merge . reverse)
+move Up    = transpose . move Left . transpose
+move Down  = transpose . move Right . transpose
 
 getZeroes :: Grid -> [(Int, Int)]
 getZeroes grid = filter (\(row, col) -> (grid!!row)!!col == 0) coordinates
@@ -56,7 +56,7 @@ setSquare grid (row, col) val = pre ++ [mid] ++ post
 
 isMoveLeft :: Grid -> Bool
 isMoveLeft grid = sum allChoices > 0 
-    where allChoices = map (length . getZeroes . move grid) directions
+    where allChoices = map (length . getZeroes . flip move grid) directions
           directions = [Left, Right, Up, Down]
 
 printGrid :: Grid -> IO ()
@@ -98,7 +98,7 @@ choose xs = do
 newGrid :: Grid -> IO Grid
 newGrid grid = do
     m <- captureMove    
-    let new_grid = move grid m                         
+    let new_grid = move m grid                        
     return new_grid
 
 gameLoop :: Grid -> IO ()
