@@ -1,17 +1,15 @@
-h2048
-=====
+H2048:
 A Haskell implementation of the game 2048
 
 Gregor Ulm
-2014-06-15
+2014
 
 
 The original version of 2048 can be played online here:
 gabrielecirulli.github.io/2048/
 
-
 This code below covers the game logic, and allows to play 2048
-on the command line.
+in the console.
 
 
 Rules:
@@ -29,8 +27,10 @@ Rules:
 
 Controls:
 
-- the game uses the WASD control scheme, i.e. to move all tiles
-    up, you would have to press W (followed by ENTER) etc.
+- QUERTY: WASD
+- Dvorak: CHTN
+- e.g. in order to move all tiles up, you would have to press
+	and release W or C
 
 
 Execution:
@@ -41,4 +41,21 @@ Execution:
 Notes:
 
 - this is a prototype with a minimal terminal window UI
-- it has only been tested in GHCi 7.6.3 in Apple OS X
+- it has been tested in GHCi 7.6.3 in Apple OS X and Linux
+
+
+Change Log:
+
+2014-06-15
+Initial release; game fully functional, but might require pushing ENTER after
+a move was entered, depending on your system configuration. I noticed that
+this was only an issue in OS X, but not in Linux.
+
+2014-06-16
+Dan Rosén (https://github.com/danr) sent a pull request, containing
+several changes and additions. The following is a direct consequence
+of his submission:
+- disabled input buffering
+- support for Dvorak
+- printf for printing the grid
+- separate function for randomly choosing an element of a list
