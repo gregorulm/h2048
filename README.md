@@ -30,7 +30,8 @@ Rules:
 Controls:
 
 - the game uses the WASD control scheme, i.e. to move all tiles
-    up, you would have to press W (followed by ENTER) etc.
+    up, you would have to press W, etc.
+  For Dvorak users, you can also use CHTN.
 
 
 Execution:
