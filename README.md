@@ -1,4 +1,5 @@
-H2048:
+H2048
+====
 A Haskell implementation of the game 2048
 
 Gregor Ulm
