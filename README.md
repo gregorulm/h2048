@@ -14,7 +14,7 @@ in the console.
 
 
 Files:
-
+----
 - README.md: this file
 - h2048.bak01: initial release, referred to in my blog post
  	"Implementing the game 2048 in less than 90 lines of
@@ -24,7 +24,7 @@ Files:
 
 
 Rules:
-
+----
 - the starting position is always the same
 - there are 4 moves: up, down, left, right; those
     inputs move all tiles in the respective direction
@@ -37,7 +37,7 @@ Rules:
 
 
 Controls:
-
+----
 - QUERTY: WASD
 - Dvorak: CHTN
 - e.g. in order to move all tiles up, you would have to press
@@ -45,17 +45,19 @@ Controls:
 
 
 Execution:
-
+----
 - start the program by calling 'main'
 
 
 Notes:
-
+----
 - this is a prototype with a minimal terminal window UI
 - it has been tested in GHCi 7.6.3 in Apple OS X and Linux
 
+***
 
 Change Log:
+====
 
 2014-06-15
 ----
