@@ -13,6 +13,16 @@ This code below covers the game logic, and allows to play 2048
 in the console.
 
 
+Files:
+
+- README.md: this file
+- h2048.bak01: initial release, referred to in my blog post
+ 	"Implementing the game 2048 in less than 90 lines of
+	 Haskell"
+- h2048.hs: current version, with changes due to community
+ 	feedback
+
+
 Rules:
 
 - the starting position is always the same
@@ -48,11 +58,13 @@ Notes:
 Change Log:
 
 2014-06-15
+----
 Initial release; game fully functional, but might require pushing ENTER after
 a move was entered, depending on your system configuration. I noticed that
 this was only an issue in OS X, but not in Linux.
 
 2014-06-16
+----
 Dan Rosén (https://github.com/danr) sent a pull request, containing
 several changes and additions. The following is a direct consequence
 of his submission:
@@ -60,3 +72,9 @@ of his submission:
 - support for Dvorak
 - printf for printing the grid
 - separate function for randomly choosing an element of a list
+
+2014-06-17
+----
+Github user qzchenwl (https://github.com/qzchenwl) submitted a patch
+that allows eta-reduction for the function 'move'.
+
