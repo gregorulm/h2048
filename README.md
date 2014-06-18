@@ -1,5 +1,5 @@
 H2048
-====
+=====
 A Haskell implementation of the game 2048
 
 Gregor Ulm
@@ -9,12 +9,13 @@ Gregor Ulm
 The original version of 2048 can be played online here:
 gabrielecirulli.github.io/2048/
 
-This code below covers the game logic, and allows to play 2048
-in the console.
+This program covers the game logic and IO, allowing you to
+play 2048 in the console.
 
+***********************************************************
 
 Files:
-----
+-----
 - README.md: this file
 - h2048.bak01: initial release, referred to in my blog post
  	"Implementing the game 2048 in less than 90 lines of
@@ -24,7 +25,7 @@ Files:
 
 
 Rules:
-----
+-----
 - the starting position is always the same
 - there are 4 moves: up, down, left, right; those
     inputs move all tiles in the respective direction
@@ -37,7 +38,7 @@ Rules:
 
 
 Controls:
-----
+---------
 - QUERTY: WASD
 - Dvorak: CHTN
 - e.g. in order to move all tiles up, you would have to press
@@ -45,38 +46,42 @@ Controls:
 
 
 Execution:
-----
+----------
 - start the program by calling 'main'
 
 
 Notes:
-----
+------
 - this is a prototype with a minimal terminal window UI
 - it has been tested in GHCi 7.6.3 in Apple OS X and Linux
 
-***
+***********************************************************
 
 Change Log:
-====
+===========
 
 2014-06-15
-----
-Initial release; game fully functional, but might require pushing ENTER after
-a move was entered, depending on your system configuration. I noticed that
-this was only an issue in OS X, but not in Linux.
+----------
+Initial release; game fully functional, but might require
+pushing ENTER after a move was entered, depending on your
+system configuration. I noticed that this was only an issue
+in OS X, but not in Linux.
 
 2014-06-16
-----
-Dan Rosén (https://github.com/danr) sent a pull request, containing
-several changes and additions. The following is a direct consequence
-of his submission:
+----------
+Dan Rosén (https://github.com/danr) sent a pull request, 
+containing several changes and additions. The following is a
+direct consequence of his submission:
 - disabled input buffering
 - support for Dvorak
 - printf for printing the grid
 - separate function for randomly choosing an element of a list
 
 2014-06-17
-----
-Github user qzchenwl (https://github.com/qzchenwl) submitted a patch
-that allows eta-reduction for the function 'move'.
+----------
+Github user qzchenwl (https://github.com/qzchenwl) submitted a
+patch that allows eta-reduction for the function 'move'.
 
+2014-06-18
+----------
+The starting position was randomized.
