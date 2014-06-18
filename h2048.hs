@@ -6,7 +6,7 @@ A Haskell implementation of 2048.
 Gregor Ulm
 
 last update:
-2014-06-16
+2014-06-18
 
 Please consult the file README for further information
 on this program.
@@ -16,32 +16,29 @@ on this program.
 import Prelude hiding (Left, Right)
 import Data.Char (toLower)
 import Data.List
-import Data.List.Split (chunksOf)
-import Data.Random (shuffle, runRVar, StdRandom(..))
 import System.IO
 import System.Random
 import Text.Printf
 
 data Move = Up | Down | Left | Right
-type Grid = [[Int]]   
+type Grid = [[Int]]
 
-newStart :: IO Grid
-newStart = do
-    xs <- runRVar (shuffle $ 2:2:take 14 [0,0..]) StdRandom
-    return $ chunksOf 4 xs
+start :: IO Grid
+start = do grid'  <- addTile $ replicate 4 [0, 0, 0, 0]
+           addTile grid'
 
 merge :: [Int] -> [Int]
 merge xs = merged ++ padding
-    where padding          = replicate (length xs - length merged) 0
-          merged           = combine $ filter (/= 0) xs
-          combine (x:y:xs) | x == y    = x * 2 : combine xs
-                           | otherwise = x     : combine (y:xs)
-          combine x        = x
+    where padding = replicate (length xs - length merged) 0
+          merged  = combine $ filter (/= 0) xs
+          combine (x:y:xs) | x == y = x * 2 : combine xs
+                           | otherwise = x  : combine (y:xs)
+          combine x = x
 
-move :: Move -> Grid ->  Grid
+move :: Move -> Grid -> Grid
 move Left  = map merge
 move Right = map (reverse . merge . reverse)
-move Up    = transpose . move Left . transpose
+move Up    = transpose . move Left  . transpose
 move Down  = transpose . move Right . transpose
 
 getZeroes :: Grid -> [(Int, Int)]
@@ -56,7 +53,7 @@ setSquare grid (row, col) val = pre ++ [mid] ++ post
           post = drop (row + 1) grid
 
 isMoveLeft :: Grid -> Bool
-isMoveLeft grid = sum allChoices > 0 
+isMoveLeft grid = sum allChoices > 0
     where allChoices = map (length . getZeroes . flip move grid) directions
           directions = [Left, Right, Up, Down]
 
@@ -84,7 +81,7 @@ check2048 :: Grid -> Bool
 check2048 grid = [] /= filter (== 2048) (concat grid)
                 
 addTile :: Grid -> IO Grid
-addTile grid = do 
+addTile grid = do
     let candidates = getZeroes grid
     pick <- choose candidates
     val  <- choose [2,2,2,2,2,2,2,2,2,4]
@@ -98,8 +95,8 @@ choose xs = do
 
 newGrid :: Grid -> IO Grid
 newGrid grid = do
-    m <- captureMove    
-    let new_grid = move m grid                        
+    m <- captureMove
+    let new_grid = move m grid
     return new_grid
 
 gameLoop :: Grid -> IO ()
@@ -108,7 +105,7 @@ gameLoop grid
         printGrid grid
         if check2048 grid
         then putStrLn "You won!"
-        else do new_grid <- newGrid grid                        
+        else do new_grid <- newGrid grid
                 if grid /= new_grid
                 then do new <- addTile new_grid
                         gameLoop new
@@ -120,5 +117,5 @@ gameLoop grid
 main :: IO ()
 main = do
     hSetBuffering stdin NoBuffering
-    start <- newStart
-    gameLoop start
+    grid <- start
+    gameLoop grid
