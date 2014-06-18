@@ -16,6 +16,8 @@ on this program.
 import Prelude hiding (Left, Right)
 import Data.Char (toLower)
 import Data.List
+import Data.List.Split (chunksOf)
+import Data.Random (shuffle, runRVar, StdRandom(..))
 import System.IO
 import System.Random
 import Text.Printf
@@ -23,11 +25,10 @@ import Text.Printf
 data Move = Up | Down | Left | Right
 type Grid = [[Int]]   
 
-start :: Grid
-start = [[0, 0, 0, 0],
-         [0, 0, 0, 0],
-         [0, 0, 0, 2],
-         [0, 0, 0, 2]]
+newStart :: IO Grid
+newStart = do
+    xs <- runRVar (shuffle $ 2:2:take 14 [0,0..]) StdRandom
+    return $ chunksOf 4 xs
 
 merge :: [Int] -> [Int]
 merge xs = merged ++ padding
@@ -119,4 +120,5 @@ gameLoop grid
 main :: IO ()
 main = do
     hSetBuffering stdin NoBuffering
+    start <- newStart
     gameLoop start
